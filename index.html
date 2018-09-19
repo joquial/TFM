@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skulpt</title>
+    <link rel="stylesheet" type="text/css" media="all" href="static/codemirror.css">
+    <link rel="stylesheet" type="text/css" media="all" href="static/solarized.css">
+    <link rel="stylesheet" type="text/css" media="all" href="static/main.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="static/codemirrorepl.js" type="text/javascript"></script>
+    <script src="static/repl.js" type="text/javascript"></script>
+    <script src="static/python.js" type="text/javascript"></script>
+    <script src="http://www.skulpt.org/support/jsbeautify/beautify.js" type="text/javascript" ></script>
+    <script src="static/skulpt.min.js" type="text/javascript"></script>
+    <script src="static/debugger/debugger.js" type="text/javascript"></script>
+    <script src="static/skulpt-stdlib.js" type="text/javascript"></script>
+    <script src="static/env/editor.js" type="text/javascript"></script>
+    <script src="static/debugger/debugger_cm.js" type="text/javascript"></script>
+    <script type="text/javascript">
+ 
+      function saveTextAsFile()
+{
+    var textToSave = document.getElementById("codeoutput").value;
+    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+ 
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+ 
+    downloadLink.click();
+}
+ 
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+ 
+</script>
+</head>
+<body>
+
+
+<a href="https://github.com/skulpt/skulpt"><img style="position: absolute; top: 0; left: 0; border: 0;"
+                                                 src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"
+                                                 alt="Fork me on GitHub"></a>
+
+<div class="page">
+<div class="body">
+<div class="main">
+    <img src="static/logo.png" alt="Skulpt" id="logo">
+
+    <h2>Python. Client side.</h2>
+
+    <p>Skulpt is an <em>entirely in-browser</em> implementation of Python.</p>
+
+    <p>No preprocessing, plugins, or server-side support required, just write
+        Python and reload.</p>
+
+    <h2>Demo</h2>
+
+    <p>The code is run entirely in your browser, so don't feel
+        obligated to &quot;crash the server&quot;, you'll only stub your
+        toe. <a id="toggledocs" href="index.html#">Help</a>, or examples:
+        <a href="index.html#" id="codeexample1">1</a>
+        <a href="index.html#" id="codeexample2">2</a>
+        <a href="index.html#" id="codeexample3">3</a>
+        <a href="index.html#" id="codeexample4">4</a>
+        <a href="index.html#" id="codeexample5">5</a>
+        <a href="index.html#" id="codeexample6">6</a>
+        <a href="index.html#" id="codeexample7">7</a>
+        <a href="index.html#" id="codeexample8">8</a>.
+        Ctrl-Enter to run.
+    </p>
+
+    <div id="quickdocs" style="display: none">
+        <ul>
+            <li>cut/copy/paste/undo/redo with the usual shortcut keys</li>
+            <li>Tab does decent indenting.
+                Thanks to <a href="http://codemirror.net/"
+                             target="_blank">CodeMirror</a> for the text editor.
+            </li>
+            <li>Ctrl-Enter to run, Shift-Enter to run selected</li>
+            <!--
+            <li>F9 to toggle breakpoints</li>
+            <li>F10 to step over</li>
+            <li>F11 to step in</li>
+            <li>Shift-F11 to step out.</li>
+            <li>You can inspect values with e.g. 'print foo' in the
+            &quot;Interactive&quot; box. When debugging, this will
+            execute in the debug context.</li>
+            -->
+        </ul>
+    </div>
+
+
+    <p></p>
+
+    <textarea id="code" cols="85" rows="25">
+import turtle
+
+t = turtle.Turtle()
+
+for c in ['red', 'green', 'yellow', 'blue']:
+    t.color(c)
+    t.forward(75)
+    t.left(90)
+    </textarea>
+    <textarea id="debugger_cm", cols="85" rows="1"></textarea>
+
+    <button id="skulpt_run">Run</button>
+    <button id="skulpt_js_output" onclick="var cm = $('.CodeMirror')[2].CodeMirror;$(cm.getWrapperElement()).toggle()">Hide/Unhide JS</button>
+    <input id="inputFileNameToSaveAs"></input>
+    <button id="skulpt_save" onclick="saveTextAsFile()">Save Text to File</button>
+    <textarea id="codeoutput"></textarea>
+
+    <p>Output: (<a href="index.html#" id="clearoutput">clear</a>)</p>
+    <pre id="edoutput"></pre>
+
+    <div id="mycanvas" height="400" width="400"
+            style="border-style: solid;"></div>
+
+    <h2>Interactive:</h2>
+    <p>This is a very cool new feature that is just getting off the ground.  This would be a great project to jump in and help out on!</p>
+
+    <textarea id="interactive" cols="85" rows="1"></textarea>
+
+
+
+</body>
+</html>
