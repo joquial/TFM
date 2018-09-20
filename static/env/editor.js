@@ -39,7 +39,32 @@ $(document).ready(function () {
             } catch(e) {
                 outf(e.toString() + "\n")
             }
-        }
+        },
+        "save": function saveTextAsFile(editor)
+	{ 
+
+	    var textToSave = editor.getValue();
+	    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+	    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+	 
+	    var downloadLink = document.createElement("a");
+	    downloadLink.download = fileNameToSaveAs;
+	    downloadLink.innerHTML = "Download File";
+	    downloadLink.href = textToSaveAsURL;
+	    downloadLink.onclick = destroyClickedElement;
+	    downloadLink.style.display = "none";
+	    document.body.appendChild(downloadLink);
+	    
+	 
+	    downloadLink.click();
+	},
+
+
+}
+function destroyClickedElement(event)
+   {
+    document.body.removeChild(event.target);
     }
 
 
@@ -58,8 +83,8 @@ $(document).ready(function () {
         extraKeys: keymap,
         parserConfig: {'pythonVersion': 2, 'strictErrors': true}
     });
-    
-    var js_output = CodeMirror.fromTextArea(document.getElementById('codeoutput'), {
+
+    var js_output = CodeMirror.fromTextArea(document.getElementById('code'), {
        parserfile: ["parsejavascript.js"],
         autofocus: false,
         theme: "solarized dark",
@@ -81,6 +106,8 @@ $(document).ready(function () {
 
     $("#skulpt_run").click(function (e) { keymap["Ctrl-Enter"](editor)} );
 
+    $("#skulpt_save").click(function (e) { keymap["save"](editor)} );
+  
     $("#toggledocs").click(function (e) {
         $("#quickdocs").toggle();
     });
@@ -115,3 +142,5 @@ $(document).ready(function () {
 
     editor.focus();
 });
+
+
