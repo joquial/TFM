@@ -84,22 +84,8 @@ function destroyClickedElement(event)
         parserConfig: {'pythonVersion': 2, 'strictErrors': true}
     });
 
-    var js_output = CodeMirror.fromTextArea(document.getElementById('code'), {
-       parserfile: ["parsejavascript.js"],
-        autofocus: false,
-        theme: "solarized dark",
-        //path: "static/env/codemirror/js/",
-        lineNumbers: true,
-        textWrapping: false,
-        indentUnit: 4,
-        height: "160px",
-        fontSize: "9pt",
-        autoMatchParens: true,
-        extraKeys: keymap,
-    });    
-    
+   
     window.code_editor = editor;
-    window.js_output = js_output;
     window.jsoutf = jsoutf;
     window.outf = outf;
     window.builtinRead = builtinRead;
