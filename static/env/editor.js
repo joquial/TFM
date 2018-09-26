@@ -11,6 +11,7 @@ $(document).ready(function () {
     
     var keymap = {
         "Ctrl-Enter" : function (editor) {
+           
             Sk.configure({output: outf, read: builtinRead});
             Sk.canvas = "mycanvas";
             if (editor.getValue().indexOf('turtle') > -1 ) {
@@ -41,6 +42,38 @@ $(document).ready(function () {
                 outf(e.toString() + "\n")
             }
         },
+        "load": function Load(editor)
+	{ 
+ 
+	    var fileNameToLoad = document.getElementById("inputnameload").value;
+
+                       var header = {
+                       "Content-Type": "application/json; charset=utf-8",
+                       "Accept" : "application/json"
+                        };                                           
+
+	               var datas = {};
+                       datas.body = {};
+                       datas.body.fileName =fileNameToLoad
+                                       
+					
+                       jQuery.ajax({
+		       type: 'POST',
+		       data: datas,
+                       crossDomain:true,
+                       url: 'http://localhost:8090/endpoint',						
+                            success: function(result) {
+                            console.log('Data'+result);    
+                      var contents= result;
+                      editor.setValue(contents);
+                            }
+                            
+                       });
+                                    
+
+    
+},	
+  
         "save": function saveTextAsFile(editor)
 	{ 
             
@@ -49,44 +82,39 @@ $(document).ready(function () {
 	    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
 	    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
 
-                                        var headers = {
-"Content-Type": "application/json; charset=utf-8",
-"Accept" : "application/json"
-};                                           
+                      var headers = {
+                      "Content-Type": "application/json; charset=utf-8",
+                      "Accept" : "application/json"
+                       };                                           
 
-					var data = {};
-                                        data.body = {};
-                                        data.body.fileName =fileNameToSaveAs
-                                        data.body.content  =textToSave
-
-					
+		      var data = {};
+                      data.body = {};
+                      data.body.fileName =fileNameToSaveAs
+                      data.body.content  =textToSave
         
-					
-					jQuery.ajax({
-						type: 'POST',
-						data: data,
-    
-                                        crossDomain:true,
-                        url: 'http://localhost:8080/endpoint',						
-                        success: function(data) {
+		      jQuery.ajax({
+		      type: 'POST',
+		      data: data, 
+                      crossDomain:true,
+                      url: 'http://localhost:8080/endpoint',						
+                            success: function(data) {
                             console.log('success');
                             console.log(JSON.stringify(data));
-                        }
-                    });
+                            }
+                           
+                      });
             
 	   var downloadLink = document.createElement("a");
 	    downloadLink.download = fileNameToSaveAs;
 	    downloadLink.innerHTML = "Download File";
 	    downloadLink.href = textToSaveAsURL;
 	    downloadLink.style.display = "none";
-	    document.body.appendChild(downloadLink);
-	    
-	 
+	    document.body.appendChild(downloadLink);	 
 	    downloadLink.click();
 	},
 
 
-}
+   }
 
 
     var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -110,10 +138,19 @@ $(document).ready(function () {
     window.outf = outf;
     window.builtinRead = builtinRead;
 
+    $("#skulpt_run").click(function (e) {
+        $('#edoutput').text('');
+        $('#mycanvas').hide();
+    });
+
     $("#skulpt_run").click(function (e) { keymap["Ctrl-Enter"](editor)} );
 
     $("#skulpt_save").click(function (e) { keymap["save"](editor)} );
-  
+    $("#skulpt_load").click(function (e) {
+        $(editor.setValue(''));
+        $('#mycanvas').hide();
+    });
+    $("#skulpt_load").click(function (e) { keymap["load"](editor)} );
     $("#toggledocs").click(function (e) {
         $("#quickdocs").toggle();
     });
