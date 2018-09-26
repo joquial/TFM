@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     var output = $('#edoutput');
     var outf = function (text) {
@@ -42,17 +43,41 @@ $(document).ready(function () {
         },
         "save": function saveTextAsFile(editor)
 	{ 
-
+            
 	    var textToSave = editor.getValue();
 	    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
 	    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
 	    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
-	 
-	    var downloadLink = document.createElement("a");
+
+                                        var headers = {
+"Content-Type": "application/json; charset=utf-8",
+"Accept" : "application/json"
+};                                           
+
+					var data = {};
+                                        data.body = {};
+                                        data.body.fileName =fileNameToSaveAs
+                                        data.body.content  =textToSave
+
+					
+        
+					
+					jQuery.ajax({
+						type: 'POST',
+						data: data,
+    
+                                        crossDomain:true,
+                        url: 'http://localhost:8080/endpoint',						
+                        success: function(data) {
+                            console.log('success');
+                            console.log(JSON.stringify(data));
+                        }
+                    });
+            
+	   var downloadLink = document.createElement("a");
 	    downloadLink.download = fileNameToSaveAs;
 	    downloadLink.innerHTML = "Download File";
 	    downloadLink.href = textToSaveAsURL;
-	    downloadLink.onclick = destroyClickedElement;
 	    downloadLink.style.display = "none";
 	    document.body.appendChild(downloadLink);
 	    
@@ -62,17 +87,12 @@ $(document).ready(function () {
 
 
 }
-function destroyClickedElement(event)
-   {
-    document.body.removeChild(event.target);
-    }
 
 
     var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         parserfile: ["parsepython.js"],
         autofocus: true,
         theme: "solarized dark",
-        //path: "static/env/codemirror/js/",
         styleActiveLine: true,
         lineNumbers: true,
         textWrapping: false,
@@ -101,7 +121,7 @@ function destroyClickedElement(event)
     var exampleCode = function (id, text) {
         $(id).click(function (e) {
             editor.setValue(text);
-            editor.focus(); // so that F5 works, hmm
+            editor.focus(); 
         });
     };
 
