@@ -259,6 +259,7 @@ Sk.Debugger.prototype.success = function(r) {
 };
 
 Sk.Debugger.prototype.error = function(e) {
+    console.log(e);
     this.print("Traceback (most recent call last):");
     for (var idx = 0; idx < e.traceback.length; ++idx) {
         this.print("  File \"" + e.traceback[idx].filename + "\", line " + e.traceback[idx].lineno + ", in <module>");

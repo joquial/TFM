@@ -130,7 +130,7 @@ $(function () {
             $('#mycanvas').show()
         }
         Sk.pre = "edoutput";
-        Sk.pre = "codeoutput";
+        Sk.pre = "code";
         
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
         try {

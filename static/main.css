@@ -49,7 +49,7 @@ h1, .h1 {
 	font-weight: bold;
 	font-style: normal;
     letter-spacing: -0.05em;
-	color: rgb(31,72,100);
+	color: rgb(255,0,0);
 	/*font-variant: small-caps;*/
 }
 
@@ -58,7 +58,7 @@ h2, .h2 {
     letter-spacing: -0.05em;
 	font-weight: bold;
 	font-style: normal;
-	color: rgb(31,72,100);
+	color: rgb(255,0,0);
 	/*font-variant: small-caps;*/
 }
 

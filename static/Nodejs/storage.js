@@ -20,7 +20,7 @@ app.use(myParser.urlencoded({extended : true}));
           var text=JSON.stringify(request.body)
           var start_pos = text.indexOf('m') + 5 ;
           var end_pos = text.indexOf('"',start_pos) ;
-          var title = '../' + text.substring(start_pos,end_pos)
+          var title = text.substring(start_pos,end_pos)
           var start_pos2 = text.indexOf(':',end_pos) + 2;
           var end_pos2 = text.lastIndexOf('"');
           var contenido = text.substring(start_pos2,end_pos2)

@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Skulpt</title>
+    <title>Your Python Site</title>
     <link rel="stylesheet" type="text/css" media="all" href="static/codemirror.css">
     <link rel="stylesheet" type="text/css" media="all" href="static/solarized.css">
     <link rel="stylesheet" type="text/css" media="all" href="static/main.css">
@@ -23,7 +23,7 @@
 
 </script>
 </head>
-<body>
+<body onLoad="scrollWin()";>
 
 
 <a href="https://github.com/skulpt/skulpt"><img style="position: absolute; top: 0; left: 0; border: 0;"
@@ -33,14 +33,16 @@
 <div class="page">
 <div class="body">
 <div class="main">
-    <img src="static/logo.png" alt="Skulpt" id="logo">
+    <img src="static/pyt.png" alt="YourPythonsite" id="pyt">
 
     <h2>Python. Client side.</h2>
 
-    <p>Skulpt is an <em>entirely in-browser</em> implementation of Python.</p>
+    <p>This website is an <em>entirely in-browser</em> implementation of Python.</p>
 
     <p>No preprocessing, plugins, or server-side support required, just write
         Python and reload.</p>
+    <p>You can use the Interactive screen to check line by line if your code contains any mistake. Using the Demo functionality you can write your code and get the result in the Output screen. Apart from that you can also load your own files or saving the new code in a new file.
+    </p>
 
    
 
@@ -67,9 +69,9 @@
     <div class="column">
 
          <h2>Interactive:</h2>
-         <p>This is a very cool new feature that is just getting off the ground.  This would be a great project to jump in and help out on!
+         <p>In this window you can write your code and see if you make any mistake line by line.
          </p>
-         <button id="skulpt_test"onclick="alert ('This is the perfect way to see what is going wrong')">Enjoy</button>
+         <button id="skulpt_test"onclick="alert ('Now, you do not have any excuse to write your perfect code')">Enjoy</button>
          <textarea id="interactive" cols="85" rows="1"></textarea>
 
         <p></p>
@@ -78,9 +80,7 @@
 
          <h2>Demo</h2>
 
-         <p>The code is run entirely in your browser, so don't feel
-            obligated to &quot;crash the server&quot;, you'll only stub your
-            toe. <a id="toggledocs" href="index.html#">Help</a>, or examples:
+         <p> Press the Run button to get an output. Examples:
         <a href="index.html#" id="codeexample1">1</a>
         <a href="index.html#" id="codeexample2">2</a>
         <a href="index.html#" id="codeexample3">3</a>
@@ -89,7 +89,7 @@
         <a href="index.html#" id="codeexample6">6</a>
         <a href="index.html#" id="codeexample7">7</a>
         <a href="index.html#" id="codeexample8">8</a>.
-        Ctrl-Enter to run.
+       
         </p>
         <button id="skulpt_run">Run</button>
         <button id="skulpt_save">Save Text to File</button>
@@ -97,22 +97,48 @@
         <button id="skulpt_load">Load</button>
         <input id="inputnameload"></input>
         <textarea id="code" cols="85" rows="25">
-        Here, you can write your code.
-        After that you can save your work to implement it in other programs.
+ Here, you can write and run your code. 
+ You can also load a file that you have already written by typing the name 
+ of the file and pressing the load button.
+ After that you can save your work to implement it in other programs.
         </textarea>
     </div>
    </div> 
-   <p>Output: (<a href="index.html#" id="clearoutput">clear</a>)</p>
+   <h2>Output: (<a href="index.html#" id="clearoutput">clear</a>)</h2>
    <pre id="edoutput"></pre>
    <div class="row">
     <div class="column">
+    <h2>Google Search</h2>
+         <p>You can always search for more information. <br>
+Use your browser icons to navigate back and forward.
+         </p>
+    <button id="button" onclick="test.location.href='https://www.google.com/search?igu=1'">Initial Page</button>
+    <div class="resp-container">
+    <iframe class="iframe" name="test" id="test" width="650" height="300" src="https://www.google.com/search?igu=1" style="border:none;"></iframe> 
+   
+     </div>
+    </div>
+    <div class="column">
+    <h2>Debugger</h2>
+    <p> Here you have your debugger tool, but you can always hide it.
+         </p>
+<br>
     <button id="skulpt_js_output" onclick="var cm = $('.CodeMirror')[2].CodeMirror;$(cm.getWrapperElement()).toggle()">Hide/Unhide JS</button>
-    <div id="mycanvas" height="400" width="400"
+    
+    <div id="mycanvas" height="450" width="400"
             style="border-style: solid;"></div>
     <textarea id="debugger_cm", cols="85" rows="1"></textarea>
 
-</div>
-</div>
+
+    </div>
+   </div>
+<script>
+function scrollWin() {
+ 
+    window.scrollTo(0, 0);
+
+};
+</script>
 
 
 </body>

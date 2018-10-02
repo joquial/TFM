@@ -3,10 +3,11 @@ $(document).ready(function () {
     var output = $('#edoutput');
     var outf = function (text) {
         output.text(output.text() + text);
+    
     };
     
     var jsoutf = function (text) {
-        window.js_output.setValue(text);
+        window.js_output=text;
     }
     
     var keymap = {
@@ -20,9 +21,18 @@ $(document).ready(function () {
             Sk.pre = "edoutput";
             (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
             try {
-                Sk.misceval.asyncToPromise(function() {
+                var myPromise = Sk.misceval.asyncToPromise(function() {
+                    console.log('entered')
                     return Sk.importMainWithBody("<stdin>",false,editor.getValue(),true);
                 });
+
+                   myPromise.then(function(mod) {
+		       console.log('success');
+		   },
+		       function(err) {
+                       var pos=err.toString()
+		       outf(pos);
+		   });
             } catch(e) {
                 outf(e.toString() + "\n")
             }
