@@ -71,7 +71,7 @@ $(document).ready(function () {
 		       type: 'POST',
 		       data: datas,
                        crossDomain:true,
-                       url: 'http://localhost:8090/endpoint',						
+                       url: 'http://localhost:8090/',						
                             success: function(result) {
                             console.log('Data'+result);    
                       var contents= result;

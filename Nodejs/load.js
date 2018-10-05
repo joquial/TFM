@@ -3,7 +3,8 @@ var _ = require('underscore');
 var express = require("express");
 var myParser = require("body-parser");
 var app = express();
-
+var pp= 3;
+console.log(pp);
 
 app.use(myParser.urlencoded({extended : true}));
 
@@ -14,12 +15,13 @@ app.use(myParser.urlencoded({extended : true}));
             res.setHeader('Access-Control-Allow-Credentials', true);
             next();
          });
-       app.post('/endpoint', function(request, response) {
+       app.post('/', function(request, response) {
        
        var text=JSON.stringify(request.body)
        var start_pos = text.indexOf('m') + 5 ;
        var end_pos = text.indexOf('"',start_pos) ;
        var title = text.substring(start_pos,end_pos);
+       console.log (title);
        var contents
           fs.readFile(title, 'utf8', function(err, contents) {        
           response.send(contents); 

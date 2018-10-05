@@ -3,7 +3,8 @@ var _ = require('underscore');
 var express = require("express");
 var myParser = require("body-parser");
 var app = express();
-
+var pp= 5;
+console.log(pp);
 
 app.use(myParser.urlencoded({extended : true}));
 
@@ -25,7 +26,7 @@ app.use(myParser.urlencoded({extended : true}));
           var end_pos2 = text.lastIndexOf('"');
           var contenido = text.substring(start_pos2,end_pos2)
           var tmpo = contenido.split('\\n')
-
+          console.log(title);
           var x = tmpo.length
           var final=""; 
                 for (i = 0; i < x; i++) {
