@@ -1,6 +1,6 @@
 FROM node:10-alpine
 
-RUN mkdir -p /src/app
+RUN mkdir -p /src/app/storage
 
 WORKDIR /src/app
 
@@ -13,6 +13,6 @@ RUN npm install body-parser
 COPY . /src/app
 
 expose 8090
-expose 8080
+expose 5080
 
 CMD node load.js & node storage.js

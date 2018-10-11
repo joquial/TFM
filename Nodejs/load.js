@@ -17,13 +17,14 @@ app.use(myParser.urlencoded({extended : true}));
          });
        app.post('/', function(request, response) {
        
+       var location= './storage/'
        var text=JSON.stringify(request.body)
        var start_pos = text.indexOf('m') + 5 ;
        var end_pos = text.indexOf('"',start_pos) ;
        var title = text.substring(start_pos,end_pos);
        console.log (title);
        var contents
-          fs.readFile(title, 'utf8', function(err, contents) {        
+          fs.readFile(location + title, 'utf8', function(err, contents) {        
           response.send(contents); 
           });
        

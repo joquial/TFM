@@ -17,7 +17,8 @@ app.use(myParser.urlencoded({extended : true}));
           });
    
 
-          app.post('/endpoint', function(request, response) {     
+          app.post('/endpoint', function(request, response) {
+          var location= './storage/'   
           var text=JSON.stringify(request.body)
           var start_pos = text.indexOf('m') + 5 ;
           var end_pos = text.indexOf('"',start_pos) ;
@@ -33,7 +34,7 @@ app.use(myParser.urlencoded({extended : true}));
 
                    final = final +tmpo[i] + "\r\n";
                    }
-               fs.writeFile(title,final, function(err) {
+               fs.writeFile(location + title,final, function(err) {
                    if(err) {
                       return console.log(err);
                            }
@@ -43,4 +44,4 @@ app.use(myParser.urlencoded({extended : true}));
 
 });
 
-app.listen(8080);
+app.listen(5080);
