@@ -172,7 +172,7 @@ $(document).ready(function () {
         });
     };
 
-    exampleCode('#codeexample1', "print \"Hello, World! \"     # natch");
+    exampleCode('#codeexample1', "print 'Hello, World!'     # natch");
     exampleCode('#codeexample2', "for i in range(5):\n    print i\n");
     exampleCode('#codeexample3', "print [x*x for x in range(20) if x % 2 == 0]");
     exampleCode('#codeexample4', "print 45**123");
