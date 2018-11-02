@@ -24,11 +24,11 @@ def code (things):
     for geoloc in lstForPOI:
         infoItem = geoloc['InfoItem']
         ids = geoloc['id'][0]
-        date = time.strftime('%d/%m/%Y')
+        date = time.strftime('%Y/%m/%d')
         dayPart = time.strftime('%X')
-        if dayPart[:2] == '19':
+        if dayPart[:2] == '20':
             dayPart = 'night'
-        elif dayPart[:2] == '08':
+        elif dayPart[:2] == '07':
             dayPart = 'morning'
         
         if ids[:6] == 'Sensor': 
@@ -49,8 +49,11 @@ def code (things):
                     resultTemp = items['InfoItem'][0]['value'][0]['_']
                     lstForGeo.append({'geo':[longitude, latitude],'temp':resultTemp, 'date':date, 'time':dayPart})
                     parsedGeoAndCorrespondingTemp.append({'lon':float(longitude), 'lat':float(latitude),'date':date,
-                                                          'time':dayPart, 'temperature':resultTemp, 'name':ids, 'layer':'heatWave'})
+                                                          'time':dayPart, 'temperature':float(resultTemp), 'name':ids, 'layer':'heatWave'})
     return parsedGeoAndCorrespondingTemp;
+
+
+
 
 
 
