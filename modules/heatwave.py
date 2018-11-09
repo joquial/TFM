@@ -19,7 +19,7 @@ def heatwaveEHF(befyestdata,yestdata,todata):
     else:
         return ("No worries, we are not in a heatwave");
 
-def excessheatfactor(a):
+def excessheatfactor(a,b):
     import numpy as np
     T=[]
     for i in range (33):
@@ -30,7 +30,7 @@ def excessheatfactor(a):
     Tav=np.sum(T[3:])
     Theat/=3
     Tav/=30
-    T90 = 12
+    T90 = b
 
     EHIsig = Theat-T90
     EHIacc = Theat -Tav
