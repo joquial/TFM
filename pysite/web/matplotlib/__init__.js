@@ -1,7 +1,6 @@
 /* eslint-disable */
 (function() {
   var out$ = typeof exports != 'undefined' && exports || this;
-
   var doctype = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
 
   function isExternal(url) {
@@ -216,7 +215,7 @@ jsplotlib.Line2D = function(xdata, ydata, linewidth, linestyle, color, marker,
   markerfacecoloralt, fillstyle, antialiased, dash_capstyle,
   solid_capstyle, dash_joinstyle, solid_joinstyle, pickradius,
   drawstyle, markevery, kwargs) {
-
+ 
   var that = {};
   that._x = xdata;
   that._y = ydata;
@@ -1311,6 +1310,7 @@ jsplotlib.get_color = function(cs) {
 /**
  Creates the d3 svg element at the specified dom element with given width and height
 **/
+
 jsplotlib.make_chart = function(width, height, insert_container, insert_mode,
   attributes) {
   chart_counter++;
@@ -1319,7 +1319,7 @@ jsplotlib.make_chart = function(width, height, insert_container, insert_mode,
   width = width - 2 * DEFAULT_PADDING || 500;
   height = height - 2 * DEFAULT_PADDING || 200;
   attributes = attributes || {};
-
+  
   // create id, if not given
   if (!('id' in attributes)) {
     attributes.id = 'chart' + chart_counter;
@@ -1327,9 +1327,10 @@ jsplotlib.make_chart = function(width, height, insert_container, insert_mode,
 
   var chart;
   if (!insert_mode) {
-    chart = d3.select(insert_container).append('svg');
+    var newWindow = window.open("", '_blank', "height=350,width=450,status=yes,toolbar=no,menubar=no,location=no"); 
+    chart = d3.select(newWindow.document.body).append('svg');
   } else {
-    chart = d3.select(insert_container).insert('svg', insert_mode);
+    chart = d3.select(newWindow.document.body).insert('svg', insert_mode);
   }
 
   // set css classes
@@ -1346,7 +1347,10 @@ jsplotlib.make_chart = function(width, height, insert_container, insert_mode,
   }
 
   $('.chart#' + attributes.id).css("padding", DEFAULT_PADDING + 'px').css("overflow", "visible");
-  return chart;
+
+return chart;  
+
+ 
 };
 
 /**
@@ -1799,7 +1803,7 @@ jsplotlib.ones = function(N) {
 
 var $builtinmodule = function(name) {
   var mod = {};
-  var chart;
+  var chart = '';
   var plot; // TODO, we should support multiple lines here
   var canvas;
 
@@ -1818,7 +1822,8 @@ var $builtinmodule = function(name) {
       }
 
       if ($('#' + Sk.canvas).length === 0) {
-        throw new Sk.builtin.OperationError("No canvas found (internal error)");
+        chart = jsplotlib.make_chart(400, 400,"#" + Sk.canvas);
+
       }
 
       if (!chart) {
@@ -2663,8 +2668,9 @@ var $builtinmodule = function(name) {
       throw new Sk.builtin.NotImplementedError(
         "spectral is not yet implemented");
     });
-
+    
     return mod;
   });
+
 };
 
